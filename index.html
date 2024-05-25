@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Slide Show Trial: 2</title>
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+    AFRAME.registerComponent('slide-show', {
+      init: function() {
+        // Slides
+        var p_slide = document.querySelectorAll('.clickable');
+          
+        // Screen / Display
+        var screen = document.querySelector('#screen');
+          
+        // index For iteration
+        let index = 0;
+        
+        // Next-Button
+        var next = document.querySelector('#next');
+        var abc = next.getAttribute('class');
+        
+        // When click next-Button
+        next.addEventListener('click', function () {
+          if(abc === 'goNext') {
+             if(index < p_slide.length - 1) {
+                index++;
+             }
+             screen.setAttribute('src', p_slide[index].getAttribute('src'));
+          }
+        });
+          
+        // Previous-Button 
+        var previous = document.querySelector('#previous');
+        var cba = previous.getAttribute('class');
+          
+        // When click previous-button
+        previous.addEventListener('click', function () {
+          if(cba === 'goPrevious') {
+             if(index > 0) {
+                index--;
+             }
+             screen.setAttribute('src', p_slide[index].getAttribute('src'));
+          }
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <a-scene>
+    <a-entity cursor="rayOrigin: mouse"></a-entity>
+
+    <a-assets slide-show>
+      <img id="slide-1" src="./IMAGES/slide-1.jpg" class="clickable">
+      <img id="slide-2" src="./IMAGES/slide-2.jpg" class="clickable">
+      <img id="slide-3" src="./IMAGES/slide-3.jpg" class="clickable">
+      <img id="slide-4" src="./IMAGES/slide-4.jpg" class="clickable">
+      <img id="slide-5" src="./IMAGES/slide-5.jpg" class="clickable">
+      <img id="slide-6" src="./IMAGES/slide-6.jpg" class="clickable">
+      <img id="slide-7" src="./IMAGES/slide-7.jpg" class="clickable">
+      <img id="next-slide" src="./IMAGES/next.png">
+      <img id="previous-slide" src="./IMAGES/previous.png">
+    </a-assets>
+
+    <a-plane src="#slide-1" id="screen" position="0 2 -8" color="white" width="6" height="4" side="double" slide-show>
+
+      <a-plane src="#previous-slide" class="goPrevious" id="previous" position="-0.5 -2.2 0" color="white" width="0.4" height="0.4" side="double">Previous-Button</a-plane>
+
+      <a-plane src="#next-slide" class="goNext" id="next" position="0.5 -2.2 0" width="0.4" height="0.4" color="white" side="double">Next-Button</a-plane>
+
+    </a-plane>
+			<a-plane src="./IMAGES/marvel-wall.jpeg" position="0 -1 -4.5" rotation="-90 0 0" color="white" width="8" height="8"></a-plane>
+			<a-box position="0 2.5 -8.3" rotation="0 0 0" scale="8 7 0.2" color="gray"></a-box>
+			
+    <a-sky color="skyblue"></a-sky>
+    <a-camera position="0 0.5 -2.5"></a-camera>
+  </a-scene>
+</body>
+</html>
